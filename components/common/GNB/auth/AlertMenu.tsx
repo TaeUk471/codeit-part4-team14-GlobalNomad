@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AlertSvg from "../../svg/AlertSvg";
 import NotificationModal, {
   Notification,
@@ -22,10 +22,15 @@ const AlertMenu = ({ notificationsFromApi }: Props) => {
   );
   const [isAlertClicked, setIsAlertClicked] = useState(false);
 
+  useEffect(() => {
+    console.log(isAlertClicked);
+  }, [isAlertClicked]);
+
   const handleAlertClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation(); // 이벤트 버블링 막기
-    setIsAlertClicked(!isAlertClicked);
+    setIsAlertClicked((prev) => !prev);
   };
+
   return (
     <>
       <div onClick={handleAlertClick} className="relative">
@@ -38,7 +43,6 @@ const AlertMenu = ({ notificationsFromApi }: Props) => {
             buttonPosition={{ left: 0, top: 22 }}
           />
         )}
-        <div className="absolute">{isAlertClicked}</div>
       </div>
     </>
   );
